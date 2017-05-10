@@ -169,4 +169,9 @@ public class IosLibraryResolver extends HybridMobileLibraryResolver {
 		}
 		return null;
 	}
+
+	@Override
+	public String getDefiningJsonFile() {
+		return "package.json";
+	}
 }

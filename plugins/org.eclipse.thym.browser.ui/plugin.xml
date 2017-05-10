@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut
+			class="org.eclipse.thym.browser.ui.BrowserAction"
+			id="org.eclipse.thym.browser.ui.BrowserAction"
+     	    label="Run on Browser"
+     	    modes="run"
+     	    icon="icons/cordova_browser.png">
+    		<contextualLaunch>
+    			<enablement>
+        			<with variable="selection">
+            			<count value="1"/>
+            			<iterate>
+            				<adapt type="org.eclipse.core.resources.IResource">
+            					<test property="org.eclipse.core.resources.projectNature" 
+            						value="org.eclipse.thym.core.HybridAppNature" />    
+            				</adapt> 
+            			</iterate>
+            		</with>
+        		</enablement>
+    		</contextualLaunch>
+    	</shortcut>
+    </extension>
+    <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    	<launchConfigurationTabGroup
+            class="org.eclipse.thym.browser.ui.BrowserLaunchConfigurationTabGroup"
+            description="Cordova Browser Platform"
+            id="org.eclipse.thym.browser.ui.BrowserLaunchConfigurationTabGroup"
+            type="org.eclipse.thym.browser.core.BrowserLaunchConfigurationType">
+     	</launchConfigurationTabGroup>
+   	</extension>
+   	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+     	 <launchConfigurationTypeImage
+            icon="$nl$/icons/cordova_browser.png"
+            configTypeID="org.eclipse.thym.browser.core.BrowserLaunchConfigurationType"
+            id="org.eclipse.thym.browser.ui.BrowserLaunchConfigurationTypeImage">
+      	</launchConfigurationTypeImage>
+   	</extension>
+	<extension point="org.eclipse.thym.ui.platformImages">
+      <platformImage
+            icon="icons/cordova_browser.png"
+            id="org.eclipse.thym.browser.ui.browserPlatformImage"
+            platformSupport="org.eclipse.thym.browser.core.platformSupport"
+            projectBuilder="org.eclipse.thym.browser.core.projectBuilder">
+      </platformImage>
+   	</extension>
+</plugin>

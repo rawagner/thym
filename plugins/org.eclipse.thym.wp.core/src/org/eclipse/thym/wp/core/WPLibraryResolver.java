@@ -72,7 +72,7 @@ public class WPLibraryResolver extends HybridMobileLibraryResolver {
 	@Override
 	public IStatus isLibraryConsistent() {
 		if (version != null) {
-			String name = readLibraryName();
+			String name = getLibraryName();
 			if(name != null && name.equals(CORDOVA_WP8)){
 				return Status.OK_STATUS;
 			}
@@ -137,6 +137,11 @@ public class WPLibraryResolver extends HybridMobileLibraryResolver {
 			WPCore.log(IStatus.WARNING, NLS.bind(Messages.WPLibraryResolver_MissingEngineError, file.toString()), null);
 		}
 		return FileUtils.toURL(file);
+	}
+
+	@Override
+	public String getDefiningJsonFile() {
+		return "platform.json";
 	}
 
 }

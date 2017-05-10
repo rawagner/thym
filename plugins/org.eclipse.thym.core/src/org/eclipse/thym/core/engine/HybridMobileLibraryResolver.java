@@ -30,7 +30,6 @@ import com.google.gson.stream.JsonReader;
 public abstract class HybridMobileLibraryResolver {
 	
 	public static final IPath PATH_CORDOVA_JS = new Path(PlatformConstants.FILE_JS_CORDOVA);
-	public static final String PLATFORM_JSON = "platform.json";
 	
 	public static final String VAR_PACKAGE_NAME = "$package";
 	public static final String VAR_APP_NAME = "$appname";
@@ -81,16 +80,31 @@ public abstract class HybridMobileLibraryResolver {
 	 * Detects the version of the engine from layout
 	 * @return
 	 */
-	public abstract String detectVersion();
+	public String detectVersion() {
+		try{
+			FileReader packageJson = new FileReader(libraryRoot.append(getDefiningJsonFile()).toFile());
+			JsonReader reader = new JsonReader(packageJson);
+			JsonParser parser = new JsonParser();
+			JsonObject root = parser.parse(reader).getAsJsonObject();
+			JsonElement nameElement = root.get("version");
+			if(nameElement != null){
+				return nameElement.getAsString();
+			}
+			return null;
+		} catch (Exception e) {
+			HybridCore.log(IStatus.ERROR, "Error occured while reading "+getDefiningJsonFile(), e);
+			return null;
+		}
+	}
 	
 	/**
 	 * Reads library name from package.json file 
 	 * @return library name or null if name cannot be determined
 	 * @throws FileNotFoundException if package.json file does not exist
 	 */
-	public String readLibraryName() {
+	public String getLibraryName() {
 		try{
-			FileReader packageJson = new FileReader(libraryRoot.append(PLATFORM_JSON).toFile());
+			FileReader packageJson = new FileReader(libraryRoot.append(getDefiningJsonFile()).toFile());
 			JsonReader reader = new JsonReader(packageJson);
 			JsonParser parser = new JsonParser();
 			JsonObject root = parser.parse(reader).getAsJsonObject();
@@ -100,9 +114,16 @@ public abstract class HybridMobileLibraryResolver {
 			}
 			return null;
 		} catch (Exception e) {
-			HybridCore.log(IStatus.ERROR, "Error occured while reading "+PLATFORM_JSON, e);
+			HybridCore.log(IStatus.ERROR, "Error occured while reading "+getDefiningJsonFile(), e);
 			return null;
 		}
 	}
+	
+	/**
+	 * Returns name of json file which defines name and version of the library.
+	 * Returned json file is used in {@link #getLibraryName()} and {@link #detectVersion()}
+	 * @return name of json file which defines name and version of the library
+	 */
+	public abstract String getDefiningJsonFile();
 	
 }

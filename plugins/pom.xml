@@ -23,5 +23,7 @@
 		<module>org.eclipse.thym.win.core</module>
 		<module>org.eclipse.thym.win.ui</module>
     	<module>org.eclipse.thym.ui.importer</module>
+		<module>org.eclipse.thym.browser.core</module>
+		<module>org.eclipse.thym.browser.ui</module>
 	</modules>
 </project>

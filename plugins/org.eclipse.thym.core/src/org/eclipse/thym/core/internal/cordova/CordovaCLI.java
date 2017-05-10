@@ -97,7 +97,7 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova build"));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_BUILD, null, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result = new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
@@ -106,7 +106,7 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova prepare "));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_PREPARE, null, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result =  new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
@@ -115,7 +115,7 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova run --emulator"));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_EMULATE, null, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result =  new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
@@ -124,16 +124,23 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova run"));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_RUN, null, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result =  new CordovaCLIResult(streamListener.getMessage());
 		return result;
+	}
+	
+	public IProcess run(final IProgressMonitor monitor, CordovaCLIStreamListener streamListener, final String...options )throws CoreException{
+		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova run"));
+		String cordovaCommand = generateCordovaCommand(P_COMMAND_RUN, null, options);
+		sendCordovaCommand(process, cordovaCommand, monitor);
+		return process;
 	}
 	
 	public CordovaCLIResult platform (final Command command, final IProgressMonitor monitor, final String... options ) throws CoreException{
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova platform "+ command.getCliCommand()));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_PLATFORM, command, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result = new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
@@ -142,7 +149,7 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova plugin "+ command.getCliCommand()));
 		String cordovaCommand = generateCordovaCommand(P_COMMAND_PLUGIN,command, options);
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result = new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
@@ -151,7 +158,7 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("cordova -version"));
 		String cordovaCommand = generateCordovaCommand(null, null, "-version");
-		sendCordovaCommand(process, cordovaCommand, monitor);
+		sendCommandAndExit(process, cordovaCommand, monitor);
 		CordovaCLIResult result = new CordovaCLIResult(streamListener.getMessage());
 		return result;		
 	}
@@ -160,18 +167,18 @@ public class CordovaCLI {
 		final CordovaCLIStreamListener streamListener = new CordovaCLIStreamListener();
 		IProcess process = startShell(streamListener, monitor, getLaunchConfiguration("node -v"));
 		String command = "node -v\n";
-		sendCordovaCommand(process, command, monitor);
+		sendCommandAndExit(process, command, monitor);
 		CordovaCLIResult result= new CordovaCLIResult(streamListener.getMessage());
 		return result;
 	}
 
-	private void sendCordovaCommand(final IProcess process, final String cordovaCommand,
+	private void sendCommandAndExit(final IProcess process, final String cordovaCommand,
 			final IProgressMonitor monitor) throws CoreException {
 		Lock lock = projectLock();
 		lock.lock();
 		try {
+			sendCordovaCommand(process, cordovaCommand, monitor);
 			final IStreamsProxy streamProxy = process.getStreamsProxy();
-			streamProxy.write(cordovaCommand.toString());
 			while (!process.isTerminated()) {
 				//exit the shell after sending the command
 				try{
@@ -197,6 +204,19 @@ public class CordovaCLI {
 			lock.unlock();
 		}
 	}
+	
+	
+	private void sendCordovaCommand(final IProcess process, final String cordovaCommand, 
+			final IProgressMonitor monitor) throws CoreException {
+		try {
+			final IStreamsProxy streamProxy = process.getStreamsProxy();
+			streamProxy.write(cordovaCommand.toString());
+		} catch (IOException e) {
+			throw new CoreException(new Status(IStatus.ERROR, HybridCore.PLUGIN_ID, "Fatal error invoking cordova CLI", e));
+		}
+	}
+	
+	
 	
 	private String generateCordovaCommand(final String command, final Command subCommand, final String... options) {
 		StringBuilder builder = new StringBuilder();

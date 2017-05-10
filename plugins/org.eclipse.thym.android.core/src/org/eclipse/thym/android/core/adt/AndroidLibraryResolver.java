@@ -141,4 +141,10 @@ public class AndroidLibraryResolver extends
 		return null;
 	}
 
+
+	@Override
+	public String getDefiningJsonFile() {
+		return "package.json";
+	}
+
 }

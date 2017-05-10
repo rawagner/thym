@@ -101,7 +101,7 @@ public class WinLibraryResolver extends HybridMobileLibraryResolver {
 	@Override
 	public IStatus isLibraryConsistent() {
 		if (version != null) {
-			String name = readLibraryName();
+			String name = getLibraryName();
 			if(name != null && name.equals(CORDOVA_WIN)){
 				return Status.OK_STATUS;
 			}
@@ -152,5 +152,10 @@ public class WinLibraryResolver extends HybridMobileLibraryResolver {
 					versionFile.toString()), null);
 		}
 		return null;
+	}
+
+	@Override
+	public String getDefiningJsonFile() {
+		return "platform.json";
 	}
 }
