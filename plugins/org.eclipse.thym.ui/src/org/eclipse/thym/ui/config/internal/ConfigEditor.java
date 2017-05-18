@@ -30,6 +30,7 @@ import org.eclipse.thym.core.HybridCore;
 import org.eclipse.thym.core.HybridProject;
 import org.eclipse.thym.core.config.Widget;
 import org.eclipse.thym.core.config.WidgetModel;
+import org.eclipse.thym.ui.internal.Messages;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
@@ -100,7 +101,7 @@ public class ConfigEditor extends FormEditor {
 //			addPage(new IconsPage(this)); disabled until JBIDE-15746 is resolved.
 			int sourcePageIndex = addPage(sourceEditor, getEditorInput());
 			
-			setPageText(sourcePageIndex, "config.xml");
+			setPageText(sourcePageIndex, "config.xml"); //$NON-NLS-1$
 			firePropertyChange(PROP_TITLE);
 			IFile f = getFile();
 			if (f != null && f.exists()) {

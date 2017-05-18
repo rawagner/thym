@@ -30,6 +30,7 @@ import org.eclipse.thym.core.config.Access;
 import org.eclipse.thym.core.config.Widget;
 import org.eclipse.thym.core.config.WidgetModel;
 import org.eclipse.thym.ui.HybridUI;
+import org.eclipse.thym.ui.internal.Messages;
 
 public class NewAccessDialog extends Dialog {
 	private Text txtOrigin;
@@ -60,7 +61,7 @@ public class NewAccessDialog extends Dialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		getShell().setText("New Access");
+		getShell().setText(Messages.NewAccessDialog_title);
 		Composite container = (Composite) super.createDialogArea(parent);
 		GridLayout gl_container = new GridLayout(2, false);
 		gl_container.marginTop = 10;
@@ -68,7 +69,7 @@ public class NewAccessDialog extends Dialog {
 		
 		Label lblOrigin = new Label(container, SWT.NONE);
 		lblOrigin.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblOrigin.setText("Origin:");
+		lblOrigin.setText(Messages.NewAccessDialog_origin);
 		
 		txtOrigin = new Text(container, SWT.BORDER);
 		txtOrigin.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -79,10 +80,10 @@ public class NewAccessDialog extends Dialog {
 		composite.setLayout(new RowLayout(SWT.VERTICAL));
 		
 		btnSubdomains = new Button(composite, SWT.CHECK);
-		btnSubdomains.setText("Allow Subdomains");
+		btnSubdomains.setText(Messages.NewAccessDialog_allowSubdomains);
 		
 		btnBrowserOnly = new Button(composite, SWT.CHECK);
-		btnBrowserOnly.setText("Browser Only");
+		btnBrowserOnly.setText(Messages.NewAccessDialog_browserOnly);
 
 		return container;
 	}

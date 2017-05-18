@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.thym.ui.internal.Messages;
 
 public class NewNameValueDialog extends Dialog {
 	private Text txtName;
@@ -54,7 +55,7 @@ public class NewNameValueDialog extends Dialog {
 		Label lblName = new Label(contents, SWT.NONE);
 		lblName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		lblName.setText("Name:");
+		lblName.setText(Messages.NewNameValueDialog_name);
 
 		txtName = new Text(contents, SWT.BORDER);
 		txtName.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
@@ -62,7 +63,7 @@ public class NewNameValueDialog extends Dialog {
 		Label lblValue = new Label(contents, SWT.NONE);
 		lblValue.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 				false, 1, 1));
-		lblValue.setText("Value:");
+		lblValue.setText(Messages.NewNameValueDialog_value);
 
 		txtValue = new Text(contents, SWT.BORDER);
 		txtValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,

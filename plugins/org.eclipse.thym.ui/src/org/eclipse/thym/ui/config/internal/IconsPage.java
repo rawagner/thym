@@ -48,6 +48,7 @@ import org.eclipse.thym.core.config.Splash;
 import org.eclipse.thym.core.config.Widget;
 import org.eclipse.thym.core.config.WidgetModel;
 import org.eclipse.thym.ui.HybridUI;
+import org.eclipse.thym.ui.internal.Messages;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
@@ -82,7 +83,7 @@ public class IconsPage extends FormPage {
 	
 	
 	public IconsPage(FormEditor editor) {
-		super(editor, "icons", "Icons && Splash Screen");
+		super(editor, "icons", Messages.IconsPage_title);
 		formToolkit = editor.getToolkit();
 	}
 
@@ -103,7 +104,7 @@ public class IconsPage extends FormPage {
 		twd_sctnIcons.grabHorizontal = true;
 		sctnIcons.setLayoutData(twd_sctnIcons);
 		managedForm.getToolkit().paintBordersFor(sctnIcons);
-		sctnIcons.setText("Icons");
+		sctnIcons.setText(Messages.IconsPage_icons);
 		
 		Composite composite = managedForm.getToolkit().createComposite(sctnIcons, SWT.NONE);
 		managedForm.getToolkit().paintBordersFor(composite);
@@ -125,7 +126,7 @@ public class IconsPage extends FormPage {
 		managedForm.getToolkit().paintBordersFor(composite_3);
 		composite_3.setLayout(new FillLayout(SWT.VERTICAL));
 		
-		Button btnIconAdd = managedForm.getToolkit().createButton(composite_3, "Add...", SWT.NONE);
+		Button btnIconAdd = managedForm.getToolkit().createButton(composite_3, Messages.Add, SWT.NONE);
 		btnIconAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -137,10 +138,10 @@ public class IconsPage extends FormPage {
 			}
 		});
 		
-		Button btnIconRemove = managedForm.getToolkit().createButton(composite_3, "Remove", SWT.NONE);
+		Button btnIconRemove = managedForm.getToolkit().createButton(composite_3, Messages.Remove, SWT.NONE);
 		
 		Group iconDetailGrp = new Group(composite, SWT.NONE);
-		iconDetailGrp.setText("Icon Image Details");
+		iconDetailGrp.setText(Messages.IconsPage_iconImageDetails);
 		iconDetailGrp.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1));
 		managedForm.getToolkit().adapt(iconDetailGrp);
 		managedForm.getToolkit().paintBordersFor(iconDetailGrp);
@@ -150,27 +151,27 @@ public class IconsPage extends FormPage {
 		managedForm.getToolkit().paintBordersFor(imageDetailComposite);
 		imageDetailComposite.setLayout(new GridLayout(2, false));
 		
-		Label lblWidth = managedForm.getToolkit().createLabel(imageDetailComposite, "Width:", SWT.NONE);
+		Label lblWidth = managedForm.getToolkit().createLabel(imageDetailComposite, Messages.IconsPage_width, SWT.NONE);
 		
-		txtWidth = managedForm.getToolkit().createText(imageDetailComposite, "New Text", SWT.NONE);
+		txtWidth = managedForm.getToolkit().createText(imageDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtWidth.setText("");
 		txtWidth.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 		
-		Label lblHeight = managedForm.getToolkit().createLabel(imageDetailComposite, "Height:", SWT.NONE);
+		Label lblHeight = managedForm.getToolkit().createLabel(imageDetailComposite, Messages.IconsPage_height, SWT.NONE);
 		
-		txtHeight = managedForm.getToolkit().createText(imageDetailComposite, "New Text", SWT.NONE);
+		txtHeight = managedForm.getToolkit().createText(imageDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtHeight.setText("");
 		txtHeight.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		Label lblPlatform = managedForm.getToolkit().createLabel(imageDetailComposite, "Platform:", SWT.NONE);
+		Label lblPlatform = managedForm.getToolkit().createLabel(imageDetailComposite, Messages.IconsPage_platform, SWT.NONE);
 		
-		txtPlatform = managedForm.getToolkit().createText(imageDetailComposite, "New Text", SWT.NONE);
+		txtPlatform = managedForm.getToolkit().createText(imageDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtPlatform.setText("");
 		txtPlatform.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		Label lblDensity = managedForm.getToolkit().createLabel(imageDetailComposite, "Density:", SWT.NONE);
+		Label lblDensity = managedForm.getToolkit().createLabel(imageDetailComposite, Messages.IconsPage_density, SWT.NONE);
 		
-		txtDensity = managedForm.getToolkit().createText(imageDetailComposite, "New Text", SWT.NONE);
+		txtDensity = managedForm.getToolkit().createText(imageDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtDensity.setText("");
 		txtDensity.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		btnIconRemove.addSelectionListener(new SelectionAdapter() {
@@ -187,7 +188,7 @@ public class IconsPage extends FormPage {
 		Section sctnSplashes = managedForm.getToolkit().createSection(managedForm.getForm().getBody(), Section.TITLE_BAR);
 		sctnSplashes.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
 		managedForm.getToolkit().paintBordersFor(sctnSplashes);
-		sctnSplashes.setText("Splash Screens");
+		sctnSplashes.setText(Messages.IconsPage_splashScreens);
 		
 		Composite composite_1 = managedForm.getToolkit().createComposite(sctnSplashes, SWT.NONE);
 		managedForm.getToolkit().paintBordersFor(composite_1);
@@ -208,7 +209,7 @@ public class IconsPage extends FormPage {
 		managedForm.getToolkit().paintBordersFor(composite_4);
 		composite_4.setLayout(new FillLayout(SWT.VERTICAL));
 		
-		Button btnSplashAdd = managedForm.getToolkit().createButton(composite_4, "Add...", SWT.NONE);
+		Button btnSplashAdd = managedForm.getToolkit().createButton(composite_4, Messages.Add, SWT.NONE);
 		btnSplashAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -219,9 +220,9 @@ public class IconsPage extends FormPage {
 			}
 		});
 		
-		Button btnSplashRemove = managedForm.getToolkit().createButton(composite_4, "Remove", SWT.NONE);
+		Button btnSplashRemove = managedForm.getToolkit().createButton(composite_4, Messages.Remove, SWT.NONE);
 		Group splashDetailGrp = new Group(composite_1, SWT.NONE);
-		splashDetailGrp.setText("Splash Image Details");
+		splashDetailGrp.setText(Messages.IconsPage_splashImageDetails);
 		managedForm.getToolkit().adapt(splashDetailGrp);
 		managedForm.getToolkit().paintBordersFor(splashDetailGrp);
 		splashDetailGrp.setLayout(new GridLayout(1, false));
@@ -230,28 +231,28 @@ public class IconsPage extends FormPage {
 		managedForm.getToolkit().paintBordersFor(splashDetailComposite);
 		splashDetailComposite.setLayout(new GridLayout(2, false));
 		
-		Label lblSplshWidth = managedForm.getToolkit().createLabel(splashDetailComposite, "Width:", SWT.NONE);
+		Label lblSplshWidth = managedForm.getToolkit().createLabel(splashDetailComposite, Messages.IconsPage_width, SWT.NONE);
 		
-		txtSplshWidth = managedForm.getToolkit().createText(splashDetailComposite, "New Text", SWT.NONE);
+		txtSplshWidth = managedForm.getToolkit().createText(splashDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		
 		txtSplshWidth.setText("");
 		txtSplshWidth.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 		
-		Label lblSplshHeight = managedForm.getToolkit().createLabel(splashDetailComposite, "Height:", SWT.NONE);
+		Label lblSplshHeight = managedForm.getToolkit().createLabel(splashDetailComposite, Messages.IconsPage_height, SWT.NONE);
 		
-		txtSplshHeight = managedForm.getToolkit().createText(splashDetailComposite, "New Text", SWT.NONE);
+		txtSplshHeight = managedForm.getToolkit().createText(splashDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtSplshHeight.setText("");
 		txtSplshHeight.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		Label lblSplshPlatform = managedForm.getToolkit().createLabel(splashDetailComposite, "Platform:", SWT.NONE);
+		Label lblSplshPlatform = managedForm.getToolkit().createLabel(splashDetailComposite, Messages.IconsPage_platform, SWT.NONE);
 		
-		txtSplshPlatform = managedForm.getToolkit().createText(splashDetailComposite, "New Text", SWT.NONE);
+		txtSplshPlatform = managedForm.getToolkit().createText(splashDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtSplshPlatform.setText("");
 		txtSplshPlatform.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		Label lblSplshDensity = managedForm.getToolkit().createLabel(splashDetailComposite, "Density:", SWT.NONE);
+		Label lblSplshDensity = managedForm.getToolkit().createLabel(splashDetailComposite, Messages.IconsPage_density, SWT.NONE);
 		
-		txtSplshDensity = managedForm.getToolkit().createText(splashDetailComposite, "New Text", SWT.NONE);
+		txtSplshDensity = managedForm.getToolkit().createText(splashDetailComposite, Messages.IconsPage_newText, SWT.NONE);
 		txtSplshDensity.setText("");
 		txtSplshDensity.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		btnSplashRemove.addSelectionListener(new SelectionAdapter() {
@@ -274,7 +275,7 @@ public class IconsPage extends FormPage {
 		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getSite().getShell(),
 				new WorkbenchLabelProvider(),
 				new WorkbenchContentProvider());
-		dialog.setTitle("Choose image");
+		dialog.setTitle(Messages.IconsPage_chooseImage);
 		IProject currentProject = getProject();
 		dialog.setInput(currentProject.getFolder("www"));
 		dialog.addFilter(new ViewerFilter() {
@@ -295,12 +296,12 @@ public class IconsPage extends FormPage {
 
 			if (selection.length == 0 || selection.length > 1) {
 			    return new Status(IStatus.ERROR,
-				    HybridUI.PLUGIN_ID, "Must have selection");
+				    HybridUI.PLUGIN_ID, Messages.IconsPage_mustHaveSelection);
 			}
 			IResource resource = (IResource) selection[0];
 			if (resource.getType() == IResource.FOLDER) {
 			    return new Status(IStatus.ERROR,
-				    HybridUI.PLUGIN_ID, "Can not select folder");
+				    HybridUI.PLUGIN_ID, Messages.IconsPage_cannotSelectFolder);
 			    }
 			return Status.OK_STATUS;
 		    }

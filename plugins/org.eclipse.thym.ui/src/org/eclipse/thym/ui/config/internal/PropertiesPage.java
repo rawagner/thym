@@ -58,6 +58,7 @@ import org.eclipse.thym.core.config.Widget;
 import org.eclipse.thym.core.config.WidgetModel;
 import org.eclipse.thym.core.plugin.CordovaPlugin;
 import org.eclipse.thym.ui.HybridUI;
+import org.eclipse.thym.ui.internal.Messages;
 import org.eclipse.thym.ui.plugins.internal.LaunchCordovaPluginWizardAction;
 import org.eclipse.thym.ui.plugins.internal.PluginUninstallAction;
 import org.eclipse.ui.forms.IManagedForm;
@@ -68,9 +69,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.wst.xml.core.internal.cleanup.CleanupProcessorXML;
 
 public class PropertiesPage extends AbstactConfigEditorPage{
-	
-	private static final String BTN_LBL_REMOVE = "Remove";
-	private static final String BTN_LBL_ADD = "Add...";
 
 	private DataBindingContext m_bindingContext;
 
@@ -86,7 +84,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 	private TableViewer featureParamsTableViewer;
 	
 	public PropertiesPage(FormEditor editor) {
-		super(editor, "properties", "Platform Properties");
+		super(editor, "properties", Messages.PropertiesPage_title);
 		formToolkit = editor.getToolkit();
 	}
 	
@@ -178,7 +176,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		buttonComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(buttonComposite);
 
-		Button btnAccessAdd = createButton(buttonComposite, BTN_LBL_ADD);
+		Button btnAccessAdd = createButton(buttonComposite, Messages.Add);
 		btnAccessAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -190,7 +188,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 			}
 		});
 		
-		Button btnAccessRemove = createButton(buttonComposite, BTN_LBL_REMOVE);
+		Button btnAccessRemove = createButton(buttonComposite, Messages.Remove);
 		btnAccessRemove.setEnabled(false);
 		btnAccessRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -209,7 +207,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		Section sctnPreferences = formToolkit.createSection(left, Section.TITLE_BAR);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(sctnPreferences);
 		formToolkit.paintBordersFor(sctnPreferences);
-		sctnPreferences.setText("Preferences");
+		sctnPreferences.setText(Messages.PropertiesPage_preferences);
 		
 		Composite composite = formToolkit.createComposite(sctnPreferences, SWT.WRAP);
 		formToolkit.paintBordersFor(composite);
@@ -226,12 +224,12 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		TableViewerColumn tableViewerColumnName = new TableViewerColumn(preferencesViewer, SWT.NONE);
 		TableColumn tblclmnName = tableViewerColumnName.getColumn();
 		tblclmnName.setWidth(100);
-		tblclmnName.setText("name");
+		tblclmnName.setText(Messages.PropertiesPage_name);
 		
 		TableViewerColumn tableViewerColumnValue = new TableViewerColumn(preferencesViewer, SWT.NONE);
 		TableColumn tblclmnValue = tableViewerColumnValue.getColumn();
 		tblclmnValue.setWidth(100);
-		tblclmnValue.setText("value");
+		tblclmnValue.setText(Messages.PropertiesPage_value);
 		
 		Composite buttonComposite = formToolkit.createComposite(composite, SWT.NONE);
 		formToolkit.paintBordersFor(buttonComposite);
@@ -239,12 +237,12 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(buttonComposite);
 
 
-		Button btnPreferenceAdd = createButton(buttonComposite, BTN_LBL_ADD);
+		Button btnPreferenceAdd = createButton(buttonComposite, Messages.Add);
 		btnPreferenceAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				NewNameValueDialog dialog = new NewNameValueDialog(getSite().getShell(),"New Preference");
+				NewNameValueDialog dialog = new NewNameValueDialog(getSite().getShell(),Messages.PropertiesPage_newPreference);
 				if (dialog.open() == Window.OK ){
 					Preference pref = getWidgetModel().createPreference(getWidget());
 					pref.setName(dialog.getName());
@@ -255,7 +253,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 			}
 		});
 				
-		Button btnPreferenceRemove = createButton(buttonComposite, BTN_LBL_REMOVE);
+		Button btnPreferenceRemove = createButton(buttonComposite, Messages.Remove);
 		btnPreferenceRemove.setEnabled(false);
 		btnPreferenceRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -276,8 +274,8 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		Section sctnParams = formToolkit.createSection(right, Section.TITLE_BAR| Section.DESCRIPTION);
 		GridDataFactory.fillDefaults().grab(true,true).applyTo(sctnParams);
 		formToolkit.paintBordersFor(sctnParams);
-		sctnParams.setText("Params");
-		sctnParams.setDescription("Specify parameters for the selected plug-in");
+		sctnParams.setText(Messages.PropertiesPage_params);
+		sctnParams.setDescription(Messages.PropertiesPage_defineParams);
 		
 		Composite paramsComposite = formToolkit.createComposite(sctnParams, SWT.NONE);
 		formToolkit.paintBordersFor(paramsComposite);
@@ -331,13 +329,13 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		paramsTable = featureParamsTableViewer.getTable();
 		paramsTable.setLinesVisible(true);
 		paramsTable.setHeaderVisible(true);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(paramsTable);;
+		GridDataFactory.fillDefaults().grab(true, true).applyTo(paramsTable);
 		formToolkit.paintBordersFor(paramsTable);
 
 		TableViewerColumn paramTableColumnViewer = new TableViewerColumn(featureParamsTableViewer, SWT.NONE);
 		TableColumn tblclmnParamName = paramTableColumnViewer.getColumn();
 		tblclmnParamName.setWidth(100);
-		tblclmnParamName.setText("name");
+		tblclmnParamName.setText(Messages.PropertiesPage_name);
 		paramTableColumnViewer.setLabelProvider(new ColumnLabelProvider(){
 			@Override
 			public String getText(Object element) {
@@ -349,7 +347,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		paramTableColumnViewer = new TableViewerColumn(featureParamsTableViewer, SWT.NONE);
 		TableColumn tblclmnValueColumn = paramTableColumnViewer.getColumn();
 		tblclmnValueColumn.setWidth(200);
-		tblclmnValueColumn.setText("value");
+		tblclmnValueColumn.setText(Messages.PropertiesPage_value);
 		paramTableColumnViewer.setLabelProvider(new ColumnLabelProvider(){
 			@Override
 			public String getText(Object element) {
@@ -365,14 +363,14 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(featureParamBtnsComposite);
 
 
-		Button btnAdd = createButton(featureParamBtnsComposite, BTN_LBL_ADD);
+		Button btnAdd = createButton(featureParamBtnsComposite, Messages.Add);
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				IStructuredSelection sel = (IStructuredSelection) featuresTableViewer.getSelection();
 				if(sel.isEmpty())//should not happen as we always have a selection
 					return;
-				NewNameValueDialog dialog = new NewNameValueDialog(getSite().getShell(),"New Parameter");
+				NewNameValueDialog dialog = new NewNameValueDialog(getSite().getShell(), Messages.PropertiesPage_newParam);
 				if (dialog.open() == Window.OK ){
 					Feature selectedFeature = (Feature) sel.getFirstElement();
 					selectedFeature.addParam(dialog.getName(), dialog.getValue());
@@ -382,7 +380,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		});
 		this.featuresTableViewer.addSelectionChangedListener(new ButtonStateUpdater(btnAdd));
 		
-		Button btnRemove = createButton(featureParamBtnsComposite, BTN_LBL_REMOVE);
+		Button btnRemove = createButton(featureParamBtnsComposite, Messages.Remove);
 		btnRemove.setEnabled(false);
 		btnRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -404,8 +402,8 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		Section sctnFeatures = formToolkit.createSection(left, Section.TITLE_BAR | Section.DESCRIPTION);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(sctnFeatures);
 		formToolkit.paintBordersFor(sctnFeatures);
-		sctnFeatures.setText("Plugins");
-		sctnFeatures.setDescription("Define plug-ins to be used in this application");
+		sctnFeatures.setText(Messages.PropertiesPage_plugins);
+		sctnFeatures.setDescription(Messages.PropertiesPage_definePlugins);
 		
 		Composite featuresComposite = formToolkit.createComposite(sctnFeatures, SWT.NONE);
 		formToolkit.paintBordersFor(featuresComposite);
@@ -424,19 +422,19 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 		TableViewerColumn tableViewerColumnName = new TableViewerColumn(featuresTableViewer, SWT.NONE);
 		TableColumn tblclmnFeatureName = tableViewerColumnName.getColumn();
 		tblclmnFeatureName.setWidth(250);
-		tblclmnFeatureName.setText("name");
+		tblclmnFeatureName.setText(Messages.PropertiesPage_name);
 
 		TableViewerColumn tableViewerColumnSpec= new TableViewerColumn(featuresTableViewer, SWT.NONE);
 		TableColumn tblclmnFeatureSpec = tableViewerColumnSpec.getColumn();
 		tblclmnFeatureSpec.setWidth(200);
-		tblclmnFeatureSpec.setText("spec");
+		tblclmnFeatureSpec.setText(Messages.PropertiesPage_spec);
 
 		Composite featureBtnsComposite= formToolkit.createComposite(featuresComposite, SWT.NONE);
 		formToolkit.paintBordersFor(featureBtnsComposite);
 		featureBtnsComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(featureBtnsComposite);
 
-		Button btnFeatureAdd = createButton(featureBtnsComposite, BTN_LBL_ADD);
+		Button btnFeatureAdd = createButton(featureBtnsComposite, Messages.Add);
 		btnFeatureAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {	
@@ -447,7 +445,7 @@ public class PropertiesPage extends AbstactConfigEditorPage{
 			}
 		});
 
-		Button btnFeatureRemove = createButton(featureBtnsComposite, BTN_LBL_REMOVE);
+		Button btnFeatureRemove = createButton(featureBtnsComposite, Messages.Remove);
 		btnFeatureRemove.setEnabled(false);
 		btnFeatureRemove.addSelectionListener(new SelectionAdapter() {
 			@Override

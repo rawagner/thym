@@ -50,6 +50,7 @@ import org.eclipse.thym.core.config.WidgetModel;
 import org.eclipse.thym.core.engine.HybridMobileEngine;
 import org.eclipse.thym.core.engine.internal.cordova.CordovaEngineProvider;
 import org.eclipse.thym.ui.HybridUI;
+import org.eclipse.thym.ui.internal.Messages;
 import org.eclipse.thym.ui.internal.engine.AvailableCordovaEnginesSection;
 import org.eclipse.thym.ui.plugins.internal.CordovaPluginSelectionPage;
 import org.eclipse.thym.ui.plugins.internal.LaunchCordovaPluginWizardAction;
@@ -70,15 +71,6 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
  *
  */
 public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlinkListener{
-	private static final String PLUGINS_SECTION_CONTENT = "<form><p>Add Cordova plug-ins to extend your applications functionality</p>"
-			+ "<li style=\"image\"  value=\"plugin\" bindent=\"5\">Search and install from a <a href=\"plugin.registry\">registry</a></li>"
-			+ "<li style=\"image\"  value=\"plugin\" bindent=\"5\">Use a <a href=\"plugin.git\">git</a> URL to pull and install from a repo</li>"
-			+ "<li style=\"image\"  value=\"plugin\" bindent=\"5\">Install from a <a href=\"plugin.folder\">directory</a></li>"
-			+ "</form>";
-
-	private static final String EXPORT_SECTION_CONTENT = "<form><p>Options available to export this application to supported platforms:</p>"
-			+ "<li style=\"image\" value=\"export\" bindent=\"5\">Export <a href=\"export.app\">Mobile application(s)</a> to distribute</li>"
-			+ "</form>";
 
 	private DataBindingContext m_bindingContext;
 	
@@ -166,7 +158,7 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 	}
 	
 	public EssentialsPage(FormEditor editor) {
-		super(editor, "essentials", "Overview");
+		super(editor, "essentials", Messages.EssentialsPage_overview); //$NON-NLS-1$
 		formToolkit = editor.getToolkit();
 	}
 	
@@ -209,16 +201,16 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 	}
 
 	private void createPluginsSection(Composite parent){
-		Section sctnPlugins = createSection(parent, "Plug-ins");
+		Section sctnPlugins = createSection(parent, Messages.EssentialsPage_plugins);
 		sctnPlugins.setLayout(FormUtils.createClearTableWrapLayout(false, 1));
 		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
 		sctnPlugins.setLayoutData(data);
 		
 		FormText text = formToolkit.createFormText(sctnPlugins, true);
-		ImageDescriptor idesc = HybridUI.getImageDescriptor(HybridUI.PLUGIN_ID,"/icons/etool16/cordovaplug_wiz.png");
+		ImageDescriptor idesc = HybridUI.getImageDescriptor(HybridUI.PLUGIN_ID,"/icons/etool16/cordovaplug_wiz.png"); //$NON-NLS-1$
 		text.setImage("plugin", idesc.createImage());
 
-		text.setText(PLUGINS_SECTION_CONTENT, true, false);
+		text.setText(Messages.EssentialsPage_pluginsSectionContent, true, false);
 		
 		sctnPlugins.setClient(text);
 		text.addHyperlinkListener(this);
@@ -226,21 +218,21 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 	}
 	
 	private void createExportSection(Composite parent) {
-		Section sctnExport = createSection(parent, "Export");
+		Section sctnExport = createSection(parent, Messages.EssentialsPage_export);
 		sctnExport.setLayout(FormUtils.createClearTableWrapLayout(false, 1));
 		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
 		sctnExport.setLayoutData(data);
 		FormText text = formToolkit.createFormText(sctnExport, true);
-		ImageDescriptor idesc = HybridUI.getImageDescriptor(HybridUI.PLUGIN_ID, "/icons/etool16/export_wiz.png");
+		ImageDescriptor idesc = HybridUI.getImageDescriptor(HybridUI.PLUGIN_ID, "/icons/etool16/export_wiz.png"); //$NON-NLS-1$
 		text.setImage("export", idesc.createImage());
-		text.setText(EXPORT_SECTION_CONTENT, true, false);
+		text.setText(Messages.EssentialsPage_exportSectionContet, true, false);
 		
 		sctnExport.setClient(text);
 		text.addHyperlinkListener(this);
 	}
 
 	private void createAuthorSection(Composite parent) {
-		Section sctnAuthor = createSection(parent, "Author");
+		Section sctnAuthor = createSection(parent, Messages.EssentialsPage_author);
 		sctnAuthor.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		
 		Composite composite = formToolkit.createComposite(sctnAuthor, SWT.WRAP);
@@ -248,17 +240,17 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 		sctnAuthor.setClient(composite);
 		composite.setLayout(FormUtils.createSectionClientGridLayout(false, 2));
 		
-		createFormFieldLabel(composite, "Name:");
+		createFormFieldLabel(composite, Messages.EssentialsPage_name);
 	
 		txtAuthorname = formToolkit.createText(composite, "", SWT.WRAP);
 		txtAuthorname.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		createFormFieldLabel(composite, "Email:");
+		createFormFieldLabel(composite, Messages.EssentialsPage_email);
 		
 		txtEmail = formToolkit.createText(composite, "", SWT.NONE);
 		txtEmail.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		createFormFieldLabel(composite, "URL:");
+		createFormFieldLabel(composite, Messages.EssentialsPage_url);
 		
 		txtUrl = formToolkit.createText(composite, "", SWT.NONE);
 		txtUrl.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -274,7 +266,7 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 	}
 
 	private void createNameDescriptionSection(Composite parent) {
-		Section sctnNameAndDescription = createSection(parent, "Name and Description");
+		Section sctnNameAndDescription = createSection(parent, Messages.EssentialsPage_nameAndDesc);
 		sctnNameAndDescription.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		
 		Composite container = formToolkit.createComposite(sctnNameAndDescription, SWT.WRAP);
@@ -284,34 +276,34 @@ public class EssentialsPage extends AbstactConfigEditorPage implements IHyperlin
 		
 		GridData textGridData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
-		createFormFieldLabel(container, "ID:");
+		createFormFieldLabel(container, Messages.EssentialsPage_id);
 		
 		txtIdtxt = formToolkit.createText(container, "", SWT.NONE);
 		txtIdtxt.setLayoutData(textGridData);
 		
-		createFormFieldLabel(container, "Name:");
+		createFormFieldLabel(container, Messages.EssentialsPage_name);
 		
 		txtName = formToolkit.createText(container, "", SWT.NONE);
 		GridDataFactory.createFrom(textGridData).applyTo(txtName);
 		
-		createFormFieldLabel(container, "Version:");
+		createFormFieldLabel(container, Messages.EssentialsPage_version);
 		
 		txtVersion = formToolkit.createText(container, "", SWT.NONE);
 		GridDataFactory.createFrom(textGridData).applyTo(txtVersion);
 		
-		createFormFieldLabel(container, "Description:");
+		createFormFieldLabel(container, Messages.EssentialsPage_description);
 		
 		txtDescription = formToolkit.createText(container, "", SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		GridDataFactory.createFrom(textGridData).hint(SWT.DEFAULT, 100).applyTo(txtDescription);
 		
-		createFormFieldLabel(container, "Content Source:");
+		createFormFieldLabel(container, Messages.EssentialsPage_contentSource);
 		
 		txtContentsource = formToolkit.createText(container, "", SWT.NONE);
 		GridDataFactory.createFrom(textGridData).applyTo(txtContentsource);
 	}
 	
 	private void createEngineSection(Composite parent) {
-		Section sctnEngines = createSection(parent, "Hybrid Mobile Engine");
+		Section sctnEngines = createSection(parent, Messages.EssentialsPage_hMobileEngine);
 		sctnEngines.setLayout(FormUtils.createClearTableWrapLayout(false, 1));
 		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
 		sctnEngines.setLayoutData(data);
