@@ -81,28 +81,6 @@ public class HybridMobileEngine{
 				|| CordovaEngineProvider.getLibFolder().isPrefixOf(getLocation());
 	}
     
-    /**
-     * Checks if the underlying library compatible and 
-     * support the platforms of this engine.
-     * 
-     * @return status of the library
-     */
-    public IStatus isLibraryConsistent(){
-    	return resolver.isLibraryConsistent();
-    }
-    
-    /**
-     * Pre-compiles the libraries used by this engine.
-     * @param monitor
-     * @throws CoreException
-     */
-    public void preCompile(IProgressMonitor monitor) throws CoreException{
-    	if(resolver.needsPreCompilation())
-    	{
-    		resolver.preCompile(monitor);
-    	}
-    }
-    
     @Override
     public boolean equals(Object obj) {
         if(obj == null || !(obj instanceof HybridMobileEngine) ){

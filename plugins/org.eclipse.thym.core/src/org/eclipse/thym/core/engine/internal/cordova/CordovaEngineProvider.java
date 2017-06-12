@@ -242,9 +242,9 @@ public class CordovaEngineProvider implements HybridMobileEngineLocator, EngineS
 				for (PlatformSupport platformSupport : platforms) {
 					try {
 						HybridMobileLibraryResolver resolver = platformSupport.getLibraryResolver();
-						resolver.init(libraryRoot);
+						resolver.init(libraryRoot.toOSString());
 						if(resolver.isLibraryConsistent().isOK()){
-							HybridMobileEngine engine = createEngine(platformSupport.getPlatformId(),resolver.detectVersion(), resolver,libraryRoot);
+							HybridMobileEngine engine = createEngine(platformSupport.getPlatformId(),resolver.getEngineVersion(), resolver,libraryRoot);
 							listener.engineFound(engine);
 							return;
 						}
